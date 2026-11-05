@@ -1,0 +1,25 @@
+# build output
+bin/
+obj/
+dist/
+*.user
+*.pdb
+.vs/
+# web
+node_modules/
+**/web/dist/
+# third-party binaries / redistributables (downloaded at build time)
+installer/redist/
+*.dll
+*.exe
+*.lib
+# documents a person may drop into the clone are never part of the export
+*.pdf
+# local data and caches
+*.nvcache
+work/
+ref/
+poc/
+# app runtime files
+layout.json
+settings.json

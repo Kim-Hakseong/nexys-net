@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>NexysNet</AssemblyName>
+    <RootNamespace>NexysNet.App</RootNamespace>
+    <ApplicationIcon>Assets\brand\AppIcon.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>NexysNet.App.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
+    <ProjectReference Include="$(CoreDir)NexysView.Core\NexysView.Core.csproj" />
+    <ProjectReference Include="$(CoreDir)NexysView.Render\NexysView.Render.csproj" />
+    <ProjectReference Include="$(CoreDir)NexysView.Host\NexysView.Host.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="NexysView.Host" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\brand\AppIcon.ico" />
+    <Content Include="..\web\dist\**\*" Link="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\branding.json" Link="branding.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

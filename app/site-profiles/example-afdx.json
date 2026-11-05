@@ -1,0 +1,20 @@
+{
+  "name": "example-afdx",
+  "description": "ARINC 664 bench, filled in on the development PC (RUN-AFDX2): one port, no peer — receive 20 s, then send VL 20 for 20 s on the same port and capture it back (loopback). On a bench: put the ports of network A and B, list the VLs NexysNet should send in txVls, set expectPeer to true.",
+  "notes": "Port names come from the log line 'ports:' of a first run (the packet-capture library's description, or a part of the device id). The development PC's only connected adapter is Wi-Fi: its driver refuses raw frames, so N2 shows the send errors and the loopback inside the library, not a transmission.",
+  "afdx": {
+    "icd": "example-afdx-icd.csv",
+    "nicA": "Realtek 8852CE WiFi 6E PCI-E NIC",
+    "nicB": "Realtek 8852CE WiFi 6E PCI-E NIC",
+    "listenSeconds": 20,
+    "expectPeer": false,
+    "expectVls": [],
+    "txVls": [20],
+    "sendSeconds": 20,
+    "n3Minutes": 0,
+    "n3Send": false,
+    "peerName": "none (loopback bench)",
+    "jmaxMs": 0.5,
+    "skewMaxMs": 10
+  }
+}
