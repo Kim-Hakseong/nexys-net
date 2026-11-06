@@ -1,8 +1,8 @@
 ; NexysNet — Inno Setup script (ARINC 664 app split from NexysBus, RUN-SPLIT). Build: ISCC.exe installer\NexysNet.iss
 ; Input: ..\net\dist\app\* (dotnet publish, self-contained win-x64), bootstrapper MicrosoftEdgeWebview2Setup.exe in installer\redist\
 #define MyAppName "NexysNet"
-#define MyAppVersion "0.1.0-beta.1"
-#define MyAppVersionText "0.1.0 beta.1"
+#define MyAppVersion "0.1.0-beta.2"
+#define MyAppVersionText "0.1.0 beta.2"
 #define MyAppPublisher "Nexys"
 #define MyAppExeName "NexysNet.exe"
 #define MyAppUrl "https://github.com/Kim-Hakseong/nexys-net"

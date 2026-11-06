@@ -4,7 +4,7 @@
 
 **ARINC 664 Part 7 (AFDX) 네트워크 캡처 · 검사 · 송신 · 상호운용 체크리스트 — 가상 네트워크로 지금 바로, 이더넷 포트는 패킷 캡처 라이브러리(Npcap, 별도 설치)가 있는 PC에서 같은 화면으로.**
 
-![version](https://img.shields.io/badge/version-0.1.0--beta.1-7A1020) ![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-17181A) ![runtime](https://img.shields.io/badge/.NET-8.0%20self--contained-5F5E5A) ![ui](https://img.shields.io/badge/UI-WebView2-5F5E5A)
+![version](https://img.shields.io/badge/version-0.1.0--beta.2-7A1020) ![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-17181A) ![runtime](https://img.shields.io/badge/.NET-8.0%20self--contained-5F5E5A) ![ui](https://img.shields.io/badge/UI-WebView2-5F5E5A)
 
 C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸은 [nexys-core](https://github.com/Kim-Hakseong/nexys-core) submodule
 
@@ -16,8 +16,8 @@ C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸�
 ![ANALYZE](docs/guide/images/17_afdx_analyze.png)
 
 ## 설치와 실행
-- **설치형**: [Releases](https://github.com/Kim-Hakseong/nexys-net/releases)의 `NexysNet-0.1.0-beta.1-setup.exe`. Program Files에 설치, `.nxn`/`.pcapng` 연결은 선택(기본 해제). WebView2 런타임이 없으면 설치 중 받는다.
-- **포터블**: `NexysNet-0.1.0-beta.1-portable.exe` 1개.
+- **설치형**: [Releases](https://github.com/Kim-Hakseong/nexys-net/releases)의 `NexysNet-0.1.0-beta.2-setup.exe`. Program Files에 설치, `.nxn`/`.pcapng` 연결은 선택(기본 해제). WebView2 런타임이 없으면 설치 중 받는다.
+- **포터블**: `NexysNet-0.1.0-beta.2-portable.exe` 1개.
 - **소스**: `git clone --recurse-submodules` → `cd app/web && npm install && npm run build` → `dotnet build app/NexysNet.App/NexysNet.App.csproj -c Release` → `app\NexysNet.App\bin\Release\net8.0-windows\win-x64\NexysNet.exe` (nexys-core가 비공개라 소스 빌드는 core 접근 권한이 있을 때만)
 
 ## 화면 (왼쪽 레일)
@@ -31,7 +31,7 @@ C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸�
 | **INTEROP** | PEER → NEXYSNET 자동 판정(VL 수신 · ICD 밖 VL · SN · BAG · Lmax · A/B · 스큐 · 재조립 · 서브 VL 순서 · 디코드, FAIL마다 근거 프레임 링크) · NEXYSNET → PEER 표(보낸 수 vs 상대 보고, IMPORT PEER CSV…) · WIRESHARK PROFILE… · EXPORT REPORT… |
 | **SETTINGS** | 테마 · 플롯 · 캡처 폴더 · 설정 파일(`%LOCALAPPDATA%\NexysNet\settings.json`) |
 
-## 수치 (NexysBus 0.4.0-beta.2에서 측정, NexysNet 0.1.0-beta.1에서 같은 관문 재실행)
+## 수치 (NexysBus 0.4.0-beta.2에서 측정, NexysNet 0.1.0-beta.1·beta.2에서 같은 관문 재실행)
 | 관문 | 결과 |
 |---|---|
 | `--afdx` (사용자 경로 · 정답지 · 오류 주입 · VL 폴백 · 단편화 · 상대 CSV · Wireshark 교차 대조 · 1,000 VL-초 · 실시간 BAG · 100만 프레임) | 29 / 29 PASS |
