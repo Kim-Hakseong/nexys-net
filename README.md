@@ -4,7 +4,7 @@
 
 **ARINC 664 Part 7 (AFDX) 네트워크 캡처 · 검사 · 송신 · 상호운용 체크리스트 — 가상 네트워크로 지금 바로, 이더넷 포트는 패킷 캡처 라이브러리(Npcap, 별도 설치)가 있는 PC에서 같은 화면으로.**
 
-![version](https://img.shields.io/badge/version-0.1.0--beta.2-7A1020) ![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-17181A) ![runtime](https://img.shields.io/badge/.NET-8.0%20self--contained-5F5E5A) ![ui](https://img.shields.io/badge/UI-WebView2-5F5E5A)
+![version](https://img.shields.io/badge/version-0.1.0--beta.3-7A1020) ![platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-17181A) ![runtime](https://img.shields.io/badge/.NET-8.0%20self--contained-5F5E5A) ![ui](https://img.shields.io/badge/UI-WebView2-5F5E5A)
 
 C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸은 [nexys-core](https://github.com/Kim-Hakseong/nexys-core) submodule
 
@@ -16,8 +16,8 @@ C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸�
 ![ANALYZE](docs/guide/images/17_afdx_analyze.png)
 
 ## 설치와 실행
-- **설치형**: [Releases](https://github.com/Kim-Hakseong/nexys-net/releases)의 `NexysNet-0.1.0-beta.2-setup.exe`. Program Files에 설치, `.nxn`/`.pcapng` 연결은 선택(기본 해제). WebView2 런타임이 없으면 설치 중 받는다.
-- **포터블**: `NexysNet-0.1.0-beta.2-portable.exe` 1개.
+- **설치형**: [Releases](https://github.com/Kim-Hakseong/nexys-net/releases)의 `NexysNet-0.1.0-beta.3-setup.exe`. Program Files에 설치, `.nxn`/`.pcapng` 연결은 선택(기본 해제). WebView2 런타임이 없으면 설치 중 받는다.
+- **포터블**: `NexysNet-0.1.0-beta.3-portable.exe` 1개.
 - **소스**: `git clone --recurse-submodules` → `cd app/web && npm install && npm run build` → `dotnet build app/NexysNet.App/NexysNet.App.csproj -c Release` → `app\NexysNet.App\bin\Release\net8.0-windows\win-x64\NexysNet.exe` (nexys-core가 비공개라 소스 빌드는 core 접근 권한이 있을 때만)
 
 ## 화면 (왼쪽 레일)
@@ -40,6 +40,8 @@ C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸�
 | 실제 NIC 수신(Npcap) | 장시간 수신 SN 손실 0 |
 
 ## 네트워크 포트
+**설치할 것 없이**: 장치 **UDP (Windows sockets)** 는 드라이버 · 관리자 권한 없이 Windows 기본 UDP 소켓으로 ICD 포트의 데이터를 주고받는다(VI · PC 프로그램과 시험할 때 — [내 VI로 시험하기](docs/guide/quick-vi.md)). 실물 AFDX 장비의 원시 프레임(MAC 03:00:00:00:…)만 아래 Ethernet ports가 필요하다.
+
 패킷 캡처 라이브러리(Npcap)는 **배포물에 넣지 않는다** — 설치돼 있으면(`%SystemRoot%\System32\Npcap\wpcap.dll`) 실행 시 묶어서 PROJECT의 Ethernet ports와 NETWORK A / B 포트 선택이 켜지고, 없으면 가상 네트워크만 보인다. 전용 AFDX 카드는 인터페이스 자리만 있다. Wi-Fi 어댑터는 원시 이더넷 프레임 송신을 거절하는 경우가 많다(송신 시험은 유선 포트로).
 
 ## 자동화
@@ -49,6 +51,7 @@ NexysNet.exe --afdx --rtonly --rtmode sleep|hires|spin [--minimized] --rtseconds
 NexysNet.exe --interop --transport local|nic [--nic "<port>"] [--seconds 20] --out <dir>
 NexysNet.exe --site --profile <file.json> --out <dir>          (docs/site-profile.md)
 NexysNet.exe --startmem --out <dir>                             (시작 메모리 · 레일)
+NexysNet.exe --udp --out <dir>                                  (UDP 장치: VI 대역 ↔ NexysNet 양방향, NEXYS_NO_PCAP=1이면 Npcap 없는 PC처럼)
 ```
 
 ## 파일

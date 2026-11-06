@@ -11,7 +11,7 @@ namespace NexysNet.App;
 public static partial class SelfTest
 {
     public static string[] Args { get => SelfTestKit.Args; set => SelfTestKit.Args = value; }
-    public static bool Enabled => Args.Length > 0 && Args[0] is "--afdx" or "--interop" or "--interop-tx" or "--site" or "--shot" or "--startmem";
+    public static bool Enabled => Args.Length > 0 && Args[0] is "--afdx" or "--interop" or "--interop-tx" or "--site" or "--shot" or "--startmem" or "--udp";
     public static string OutDir { get => SelfTestKit.OutDir; set => SelfTestKit.OutDir = value; }
     static readonly Random Rng = new(7);
 
@@ -34,6 +34,7 @@ public static partial class SelfTest
         else if (Args[0] == "--interop-tx") await InteropTx(w);
         else if (Args[0] == "--site") await Site(w);
         else if (Args[0] == "--startmem") await StartMem(w);
+        else if (Args[0] == "--udp") await Udp(w);
         else if (Args[0] == "--shot")
         {
             await JS(w, $"await nx.test.rail({J(Arg("--rail", "START"))}); return true;");

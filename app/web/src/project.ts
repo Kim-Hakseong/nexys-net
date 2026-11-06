@@ -5,7 +5,7 @@ import { esc, h } from '@core/util';
 export class ProjectPage {
   el = h(`<div class="project"></div>`);
   private key = '';
-  private ports: any = null;
+  private ports: any = null; private portsFor = '';
   constructor() {
     this.el.addEventListener('click', async e => {
       const t = e.target as HTMLElement; const dev = (t.closest('[data-dev]') as HTMLElement | null); if (dev && !dev.classList.contains('off')) { bridge.call('project.set', { field: 'device', value: dev.dataset.dev }); return; }
@@ -21,11 +21,12 @@ export class ProjectPage {
   setState(S: any) {
     const p = S.project ?? {}; const devs: any[] = S.devices ?? []; const key = JSON.stringify([p, devs, S.afdx?.settings, S.afdx?.icd, this.ports]); if (key === this.key) return; this.key = key;
     const a = S.afdx ?? {}; const st = a.settings ?? {}; const icd = a.icd ?? {};
-    if (!this.ports) bridge.call('afdx.ports').then(r => { this.ports = r; this.key = ''; this.setState(S); });
+    if (!this.ports || this.portsFor !== p.device) { this.portsFor = p.device; bridge.call('afdx.ports').then(r => { this.ports = r; this.key = ''; this.setState(S); }); }
+    const udp = p.device === 'udp';
     const ports: any[] = this.ports?.ports ?? [];
     const row = (k: string, body: string) => `<div class="row2"><span class="k">${k}</span>${body}</div>`;
     const inp = (f: string, v: any, cls = 'in', extra = '') => `<input class="${cls}" data-f="${f}" value="${esc(v ?? '')}"${extra}>`;
-    const nicSel = (f: string, v: string) => `<select class="sel" data-nic="${f}"${ports.length ? '' : ' disabled'}><option value="">— not used —</option>${ports.map(x => `<option value="${esc(x.id)}"${x.id === v ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select>`;
+    const nicSel = (f: string, v: string, none = '— not used —') => `<select class="sel" data-nic="${f}"${ports.length ? '' : ' disabled'}><option value="">${none}</option>${ports.map(x => `<option value="${esc(x.id)}"${x.id === v ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select>`;
     this.el.innerHTML = `
       <section class="card"><div class="card-h"><span class="t">PROJECT</span><span class="m">${esc(p.path ? p.path.split(/[\\/]/).pop() : 'unsaved')}</span></div><div class="body-p">
         ${row('NAME', inp('name', p.name))}
@@ -36,9 +37,11 @@ export class ProjectPage {
       <section class="card"><div class="card-h"><span class="t">DEVICE</span><span class="m">${devs.filter(d => d.available).length} available</span></div><div class="body-p"><div class="dev-list">
         ${devs.map(d => `<div class="dev${d.id === p.device ? ' on' : ''}${d.available ? '' : ' off'}" data-dev="${esc(d.id)}"><span class="ic">${d.kind === 'virtual' ? '▣' : '▢'}</span><div><div class="nm">${esc(d.name)}</div><div class="dt">${esc(d.detail)}</div></div><span class="chip">${d.id === p.device ? 'SELECTED' : d.available ? 'AVAILABLE' : 'UNAVAILABLE'}</span></div>`).join('')}
       </div></div></section>
-      <section class="card"><div class="card-h"><span class="t">NETWORK</span><span class="m">${this.ports?.available ? 'packet-capture library: ' + esc(this.ports.library) : 'no packet-capture library — virtual network only'}</span></div><div class="body-p">
-        ${row('NETWORK A', nicSel('nicA', st.nicA ?? '') + `<span class="d">Ethernet port of network A</span>`)}
-        ${row('NETWORK B', nicSel('nicB', st.nicB ?? '') + `<span class="d">Port of network B (the same port = frames told apart by source MAC)</span>`)}
+      <section class="card"><div class="card-h"><span class="t">NETWORK</span><span class="m">${udp ? 'Windows UDP sockets — no driver needed' : this.ports?.available ? 'packet-capture library: ' + esc(this.ports.library) : 'no packet-capture library — use UDP (Windows sockets) or the virtual network'}</span></div><div class="body-p">
+        ${udp ? row('NETWORK A', nicSel('udpIfA', st.udpIfA ?? '', '— any adapter —') + `<span class="d">Adapter the peer (VI) sends on / NexysNet sends from</span>`)
+              : row('NETWORK A', nicSel('nicA', st.nicA ?? '') + `<span class="d">Ethernet port of network A</span>`)}
+        ${udp ? row('NETWORK B', nicSel('udpIfB', st.udpIfB ?? '') + `<span class="d">Only for redundant (AB) VLs sent on a second adapter</span>`)
+              : row('NETWORK B', nicSel('nicB', st.nicB ?? '') + `<span class="d">Port of network B (the same port = frames told apart by source MAC)</span>`)}
         ${row('CHECKS', `<span class="muted11">Jmax ${st.jmaxMs ?? 0.5} ms · skew limit ${st.skewMaxMs ?? 10} ms · pair window ${st.pairWindowMs ?? 20} ms</span><span class="d"><button class="pill h24" data-a="interop">INTEROP →</button></span>`)}
       </div></section>
       <section class="card"><div class="card-h"><span class="t">ICD · VIRTUAL LINKS</span><span class="m">${esc(icd.source || 'no ICD')}</span></div><div class="body-p">

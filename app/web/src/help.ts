@@ -12,7 +12,7 @@ const SECTIONS: HelpSection[] = [
     <div class="help-note">문제나 제안은 <a href="#" data-url="${esc(app.issues || '')}">GitHub Issues</a>에 남겨 주세요. 저장소: <a href="#" data-url="${esc(app.repo || '')}">${esc(app.repo || '')}</a></div>` },
   { id: 'project', label: 'PROJECT', html: () => `
     <h3>PROJECT — 네트워크 · 파일</h3>
-    <div class="help-card"><b>장치</b><p>Virtual network는 항상 있습니다(A/B 루프백, 지연·지터·B 스큐·손실·중복 주입). <b>Shared virtual network</b>는 이 PC의 다른 NexysNet 창과 프레임을 주고받습니다(한 창 SIMULATE, 다른 창 ANALYZE › LISTEN — 두 인스턴스 상호운용). 이더넷 포트는 패킷 캡처 라이브러리가 있을 때만 NETWORK A/B에서 고릅니다. 전용 AFDX 카드는 자리만 있습니다.</p></div>
+    <div class="help-card"><b>장치</b><p>Virtual network는 항상 있습니다(A/B 루프백, 지연·지터·B 스큐·손실·중복 주입). <b>UDP (Windows sockets)</b>는 드라이버·관리자 권한 없이 ICD 포트의 UDP를 주고받습니다(VI · PC 프로그램과 시험할 때, Npcap 불필요). <b>Shared virtual network</b>는 이 PC의 다른 NexysNet 창과 프레임을 주고받습니다(한 창 SIMULATE, 다른 창 ANALYZE › LISTEN — 두 인스턴스 상호운용). 이더넷 포트는 패킷 캡처 라이브러리가 있을 때만 NETWORK A/B에서 고릅니다. 전용 AFDX 카드는 자리만 있습니다.</p></div>
     <div class="help-card"><b>파일</b><p>프로젝트는 <code>.nxn</code>(JSON)으로 저장됩니다: 네트워크·ICD·송신 설정·검사 기준이 들어 있습니다. NexysBus 0.4에서 저장한 ARINC 664 프로젝트(<code>.nxb</code>)도 그대로 열립니다.</p></div>` },
   { id: 'icd', label: 'ICD', html: () => `
     <h3>ICD — 가상 링크 (허브 스키마 1.1)</h3>

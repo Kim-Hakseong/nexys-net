@@ -16,6 +16,7 @@ NexysNet은 ARINC 664 Part 7(AFDX) 네트워크 도구입니다(NexysBus 0.4에�
 |---|---|---|
 | Virtual network | 항상 | A/B 루프백. SIMULATE의 VIRTUAL NETWORK 칸으로 지연 · 지터 · B 스큐 · N번째마다 손실 · 중복을 넣습니다 |
 | Shared virtual network (this PC) | 항상 | 이 PC에서 같은 장치를 고른 **NexysNet 인스턴스끼리** 프레임을 주고받습니다(루프백 멀티캐스트, PC 밖으로 나가지 않음). 한 창은 SIMULATE로 보내고 다른 창은 ANALYZE › LISTEN으로 받는 식 — 6장 참고. 자기가 보낸 프레임은 자기에게 돌아오지 않습니다(실제 포트처럼) |
+| UDP (Windows sockets) | 항상(드라이버 · 관리자 권한 불필요) | ICD 포트의 UDP를 Windows 기본 소켓으로 주고받습니다 — VI · PC 프로그램처럼 일반 UDP를 쓰는 상대용. 멀티캐스트(ICD `ip_dst`) · 유니캐스트 · 127.0.0.1을 `udp_dst` 포트로 받고, 송신은 ICD 목적지로 보냅니다. VL은 포트로 자동 매핑(VL FROM 설정 불필요). 받은 데이터그램의 이더넷/IP 헤더는 목록·검사를 위해 다시 만든 것입니다. NETWORK A/B = 어댑터(비우면 A = 모든 어댑터). 실물 AFDX 장비의 원시 프레임은 못 받습니다 → Ethernet ports. 단계별: [내 VI로 시험하기](quick-vi.md) |
 | Ethernet ports (A / B) | 패킷 캡처 라이브러리(Npcap)가 설치된 PC | NexysNet에 들어 있지 않으며 따로 설치합니다. PROJECT › NETWORK A / B에서 포트를 고릅니다. 같은 포트를 둘 다 고르면 출발지 MAC의 인터페이스 id로 A/B를 나눕니다 |
 | AFDX end-system card | — | 전용 카드 어댑터 자리만 있습니다(이번 버전에서는 사용할 수 없음) |
 

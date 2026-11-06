@@ -94,7 +94,8 @@ public sealed class NetEngine : EngineBase
         {
             new { id = "virtual", kind = "virtual", name = "Virtual network", detail = "A/B loopback in software · delay, loss, duplication and skew injection", available = true },
             new { id = "local", kind = "virtual", name = "Shared virtual network (this PC)", detail = "every NexysNet instance on this PC that picks it sees the frames of the others (loopback multicast, nothing leaves the PC) — e.g. one instance SIMULATEs, another ANALYZEs", available = true },
-            new { id = "network", kind = "network", name = "Ethernet ports (A / B)", detail = pcap ? "packet-capture library found — pick the ports for network A and B below" : "needs the packet-capture library (Npcap, installed separately — not shipped with NexysNet)", available = pcap },
+            new { id = "udp", kind = "network", name = "UDP (Windows sockets)", detail = "no driver, no administrator rights — receives and sends the ICD ports' UDP datagrams (IP multicast, unicast, 127.0.0.1) on the adapters below: for a VI or PC program that speaks UDP. Raw AFDX frames of real end systems need the Ethernet ports", available = true },
+            new { id = "network", kind = "network", name = "Ethernet ports (A / B) — raw AFDX frames", detail = pcap ? "packet-capture library found — pick the ports for network A and B below" : "needs the packet-capture library (Npcap, installed separately — not shipped with NexysNet); use UDP (Windows sockets) without it", available = pcap },
             new { id = "afdxcard", kind = "card", name = "AFDX end-system card", detail = "interface reserved for a vendor card adapter — not available in this release", available = false },
         };
     }
