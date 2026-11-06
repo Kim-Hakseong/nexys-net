@@ -11,7 +11,7 @@ C# 12 / .NET 8 · WPF 창 + WebView2 페이지(TypeScript) · 엔진과 창 셸�
 > NexysNet은 [NexysBus](https://github.com/Kim-Hakseong/nexys-bus) 0.4.0-beta.1/beta.2의 ARINC 664 기능을 별도 앱으로 옮긴 것입니다(RUN-SPLIT). 기능·관문은 NexysBus 0.4.0-beta.2와 같고, 버스 시뮬레이션·버스 캡처 분석은 NexysBus에 남았습니다. NexysBus 0.4에서 저장한 664 프로젝트(`.nxb`, protocol `arinc664`)는 NexysNet에서 그대로 열립니다. **앱 이름 "NexysNet"은 임시**입니다(결정 대기).
 
 ## 사용 가이드
-**[사용 가이드](docs/guide/README.md)** — 프로젝트 · ICD(VL → 포트 → 파라미터) · SIMULATE(송신) · ANALYZE(캡처와 검사 규칙) · INTEROP(체크리스트 · 근거 프레임 · 상대 CSV · Wireshark 프로필 · 보고서) · 두 인스턴스 상호운용 · 사이트 프로필 · 자동 검증 · 알려진 한계. 앱 안에서는 F1.
+**처음이라면 → [사용 가이드](docs/guide/README.md)** · 실물 장비 없이 내 VI로 시험 → **[내 VI로 시험하기](docs/guide/quick-vi.md)**(빨간 박스 그림 따라 10분) · 모든 기능 → [자세한 설명서](docs/guide/reference.md). 앱 안에서는 F1.
 
 ![ANALYZE](docs/guide/images/17_afdx_analyze.png)
 

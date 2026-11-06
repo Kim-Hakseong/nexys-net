@@ -1,0 +1,4 @@
+vl_id,vl_name,bag_ms,lmax,network,sub_vl,port,port_type,ip_src,ip_dst,udp_src,udp_dst,size,param,offset,type,endian,scale,offset_val,unit
+20,VI_DEMO,8,111,A,1,VI_DEMO_P1,sampling,192.168.0.10,224.224.0.20,30080,30080,64,COUNTER,0,u16,big,1,0,
+20,VI_DEMO,8,111,A,1,VI_DEMO_P1,sampling,192.168.0.10,224.224.0.20,30080,30080,64,ALTITUDE,2,f32,big,1,0,m
+20,VI_DEMO,8,111,A,1,VI_DEMO_P1,sampling,192.168.0.10,224.224.0.20,30080,30080,64,TEMPERATURE,6,i16,big,0.1,0,degC
